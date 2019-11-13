@@ -204,12 +204,20 @@ class CSRGraph {
   }
 
   Neighborhood out_neigh(NodeID_ n, OffsetT start_offset = 0) const {
-    return Neighborhood(n, out_index_, start_offset);
+    Neighborhood neighborhood = Neighborhood(n, out_index_, start_offset);
+    for (DestID_* item = neighborhood.begin(); item < neighborhood.end(); item++) {
+      printf("out, %d, %d\n", n, *item);
+    }
+    return neighborhood;
   }
 
   Neighborhood in_neigh(NodeID_ n, OffsetT start_offset = 0) const {
     static_assert(MakeInverse, "Graph inversion disabled but reading inverse");
-    return Neighborhood(n, in_index_, start_offset);
+    Neighborhood neighborhood = Neighborhood(n, in_index_, start_offset);
+    for (DestID_* item = neighborhood.begin(); item < neighborhood.end(); item++) {
+      printf("out, %d, %d\n", n, *item);
+    }
+    return neighborhood;
   }
 
   void PrintStats() const {
